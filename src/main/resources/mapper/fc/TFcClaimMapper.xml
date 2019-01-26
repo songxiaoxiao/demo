@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moxi.core.demo.dao.fc.TFcClaimMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="moxi.core.demo.model.fc.TFcClaim">
+        <id column="ID" property="id" />
+        <result column="CLAIM_STATE" property="claimState" />
+        <result column="CLAIM_MONEY" property="claimMoney" />
+        <result column="CLAIM_REMARKS" property="claimRemarks" />
+        <result column="CLAIM_AT" property="claimAt" />
+        <result column="CONFIRM_AT" property="confirmAt" />
+        <result column="REL_CLAIM_USER_ID" property="relClaimUserId" />
+        <result column="REL_CONFIRM_USER_ID" property="relConfirmUserId" />
+        <result column="REL_INCOME_ID" property="relIncomeId" />
+        <result column="REL_CONTRACT_ID" property="relContractId" />
+        <result column="REL_CUSTOMER_ID" property="relCustomerId" />
+        <result column="REL_PRODUCT_ID" property="relProductId" />
+        <result column="REL_RECEIVABLE_ID" property="relReceivableId" />
+        <result column="SOURCE_CLAIM_ID" property="sourceClaimId" />
+        <result column="REL_COMPANY_ID" property="relCompanyId" />
+        <result column="DATA_STATE" property="dataState" />
+        <result column="DATA_CREATE_AT" property="dataCreateAt" />
+        <result column="DATA_CREATE_USER_ID" property="dataCreateUserId" />
+        <result column="DATA_UPDATE_AT" property="dataUpdateAt" />
+        <result column="DATA_UPDATE_USER_ID" property="dataUpdateUserId" />
+        <result column="EXT_RESERVE" property="extReserve" />
+        <result column="RY_CREATE_USER_NICK" property="ryCreateUserNick" />
+        <result column="RY_CREATE_DEPT_NAME" property="ryCreateDeptName" />
+        <result column="RY_CREATE_DEPT_ID" property="ryCreateDeptId" />
+        <result column="VIEW_ID" property="viewId" />
+        <result column="CONFIRMED_AMOUNT" property="confirmedAmount" />
+        <result column="FINANCE_AMOUNT" property="financeAmount" />
+        <result column="OUTBUDGET_AMOUNT" property="outbudgetAmount" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, CLAIM_STATE, CLAIM_MONEY, CLAIM_REMARKS, CLAIM_AT, CONFIRM_AT, REL_CLAIM_USER_ID, REL_CONFIRM_USER_ID, REL_INCOME_ID, REL_CONTRACT_ID, REL_CUSTOMER_ID, REL_PRODUCT_ID, REL_RECEIVABLE_ID, SOURCE_CLAIM_ID, REL_COMPANY_ID, DATA_STATE, DATA_CREATE_AT, DATA_CREATE_USER_ID, DATA_UPDATE_AT, DATA_UPDATE_USER_ID, EXT_RESERVE, RY_CREATE_USER_NICK, RY_CREATE_DEPT_NAME, RY_CREATE_DEPT_ID, VIEW_ID, CONFIRMED_AMOUNT, FINANCE_AMOUNT, OUTBUDGET_AMOUNT
+    </sql>
+
+    <resultMap id="fCashReceipt" type="moxi.core.demo.vo.WalletTempVO" >
+        <id column="ID" property="id" />
+        <result column="CLAIM_MONEY" property="amount"/>
+        <result column="ID" property="orderId"/>
+        <result column="REL_PRODUCT_ID" property="relProductId"/>
+        <result column="REL_CUSTOMER_ID" property="relCustomerId"/>
+        <result column="CONFIRM_AT" property="datetime"/>
+    </resultMap>
+
+    <select id="cashReceipt" resultMap="fCashReceipt" parameterType="moxi.core.demo.model.task.TaskDO">
+        select fc.ID, fc.CLAIM_MONEY, fc.REL_PRODUCT_ID, fc.REL_CUSTOMER_ID, fc.CONFIRM_AT
+        from t_fc_claim fc
+        join t_fc_income fi on fc.REL_INCOME_ID = fi.id
+        where fc.REL_CUSTOMER_ID = #{customerId} and fc.CLAIM_STATE = 2 and fi.INCOME_TYPE = 1 and fc.DATA_STATE = 1
+
+
+    </select>
+
+    <select id="nonCashReceipt" resultMap="fCashReceipt" parameterType="moxi.core.demo.model.task.TaskDO">
+        select fc.ID, fc.CLAIM_MONEY, fc.REL_PRODUCT_ID, fc.REL_CUSTOMER_ID, fc.CONFIRM_AT
+        from t_fc_claim fc
+        join t_fc_income fi on fc.REL_INCOME_ID = fi.id
+        where fc.REL_CUSTOMER_ID = #{customerId} and fc.CLAIM_STATE = 2 and fi.INCOME_TYPE != 1 and fc.CLAIM_MONEY > 0 and fc.DATA_STATE = 1
+
+
+    </select>
+
+    <!-- abs money subtract-->
+    <select id="retreat" resultMap="fCashReceipt" parameterType="moxi.core.demo.model.task.TaskDO">
+        select fc.ID, fc.CLAIM_MONEY, fc.REL_PRODUCT_ID, fc.REL_CUSTOMER_ID, fc.CONFIRM_AT
+        from t_fc_claim fc
+        join t_fc_income fi on fc.REL_INCOME_ID = fi.id
+        where fc.REL_CUSTOMER_ID = #{customerId} and fc.CLAIM_STATE = 3 and fc.DATA_STATE = 1
+
+
+    </select>
+</mapper>

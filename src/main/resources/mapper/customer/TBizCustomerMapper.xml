@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moxi.core.demo.dao.customer.TBizCustomerMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="moxi.core.demo.model.customer.TBizCustomer">
+        <id column="ID" property="id" />
+        <result column="FULL_NAME" property="fullName" />
+        <result column="SHORT_NAME" property="shortName" />
+        <result column="OLD_NAME" property="oldName" />
+        <result column="CUSTOMER_INTRO" property="customerIntro" />
+        <result column="CUSTOMER_TAG" property="customerTag" />
+        <result column="TAXPAYER_TYPE" property="taxpayerType" />
+        <result column="MAIN_INDUSTRY" property="mainIndustry" />
+        <result column="MAIN_INDUSTRY_ID" property="mainIndustryId" />
+        <result column="TEL_PHONE" property="telPhone" />
+        <result column="EMAIL_ADDRESS" property="emailAddress" />
+        <result column="ADDRESS_AREA" property="addressArea" />
+        <result column="ADDRESS_DETAIL" property="addressDetail" />
+        <result column="CREDIT_CODE" property="creditCode" />
+        <result column="COMPANY_TYPE" property="companyType" />
+        <result column="REG_MONEY" property="regMoney" />
+        <result column="ALLOW_DATE" property="allowDate" />
+        <result column="START_DATE" property="startDate" />
+        <result column="END_DATE" property="endDate" />
+        <result column="REG_ADDRESS_AREA" property="regAddressArea" />
+        <result column="REG_ADDRESS_AREA_ID" property="regAddressAreaId" />
+        <result column="REG_ADDRESS_PART_ID" property="regAddressPartId" />
+        <result column="REG_ADDRESS_DETAIL" property="regAddressDetail" />
+        <result column="OPERATION_SCOPE" property="operationScope" />
+        <result column="REL_REFEREE_CONTACT_ID" property="relRefereeContactId" />
+        <result column="REL_REFEREE_CUSTOMER_ID" property="relRefereeCustomerId" />
+        <result column="REL_INNER_USER_ID" property="relInnerUserId" />
+        <result column="FROM_CHANNEL_ID" property="fromChannelId" />
+        <result column="VIEW_ORDER" property="viewOrder" />
+        <result column="REL_FROM_ID" property="relFromId" />
+        <result column="REL_USER_ID" property="relUserId" />
+        <result column="REL_COMPANY_ID" property="relCompanyId" />
+        <result column="DATA_STATE" property="dataState" />
+        <result column="DATA_CREATE_AT" property="dataCreateAt" />
+        <result column="DATA_CREATE_USER_ID" property="dataCreateUserId" />
+        <result column="DATA_UPDATE_AT" property="dataUpdateAt" />
+        <result column="DATA_UPDATE_USER_ID" property="dataUpdateUserId" />
+        <result column="EXT_RESERVE" property="extReserve" />
+        <result column="RY_PRI_USER_ID" property="ryPriUserId" />
+        <result column="RY_PRI_USER_NICK" property="ryPriUserNick" />
+        <result column="RY_PRI_DEPT_NAME" property="ryPriDeptName" />
+        <result column="RY_PRI_DEPT_ID" property="ryPriDeptId" />
+        <result column="DATA_TEAM_ID" property="dataTeamId" />
+        <result column="DATA_DIRECT_ID" property="dataDirectId" />
+        <result column="RY_CREATE_USER_NICK" property="ryCreateUserNick" />
+        <result column="RY_CREATE_DEPT_NAME" property="ryCreateDeptName" />
+        <result column="RY_CREATE_DEPT_ID" property="ryCreateDeptId" />
+        <result column="VIEW_ID" property="viewId" />
+        <result column="TAX_PROPERTY" property="taxProperty" />
+        <result column="BASE_TYPE" property="baseType" />
+        <result column="ROYALTY_BASE" property="royaltyBase" />
+        <result column="ROYALTY_CAUSE" property="royaltyCause" />
+        <result column="ROYALTY_HISTORY" property="royaltyHistory" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, FULL_NAME, SHORT_NAME, OLD_NAME, CUSTOMER_INTRO, CUSTOMER_TAG, TAXPAYER_TYPE, MAIN_INDUSTRY, MAIN_INDUSTRY_ID, TEL_PHONE, EMAIL_ADDRESS, ADDRESS_AREA, ADDRESS_DETAIL, CREDIT_CODE, COMPANY_TYPE, REG_MONEY, ALLOW_DATE, START_DATE, END_DATE, REG_ADDRESS_AREA, REG_ADDRESS_AREA_ID, REG_ADDRESS_PART_ID, REG_ADDRESS_DETAIL, OPERATION_SCOPE, REL_REFEREE_CONTACT_ID, REL_REFEREE_CUSTOMER_ID, REL_INNER_USER_ID, FROM_CHANNEL_ID, VIEW_ORDER, REL_FROM_ID, REL_USER_ID, REL_COMPANY_ID, DATA_STATE, DATA_CREATE_AT, DATA_CREATE_USER_ID, DATA_UPDATE_AT, DATA_UPDATE_USER_ID, EXT_RESERVE, RY_PRI_USER_ID, RY_PRI_USER_NICK, RY_PRI_DEPT_NAME, RY_PRI_DEPT_ID, DATA_TEAM_ID, DATA_DIRECT_ID, RY_CREATE_USER_NICK, RY_CREATE_DEPT_NAME, RY_CREATE_DEPT_ID, VIEW_ID, TAX_PROPERTY, BASE_TYPE, ROYALTY_BASE, ROYALTY_CAUSE, ROYALTY_HISTORY
+    </sql>
+
+</mapper>

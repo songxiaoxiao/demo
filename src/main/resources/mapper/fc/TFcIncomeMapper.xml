@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moxi.core.demo.dao.fc.TFcIncomeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="moxi.core.demo.model.fc.TFcIncome">
+        <id column="ID" property="id" />
+        <result column="INCOME_MONEY" property="incomeMoney" />
+        <result column="INCOME_TYPE" property="incomeType" />
+        <result column="INCOME_CODE" property="incomeCode" />
+        <result column="INCOME_ACCOUNT_NAME" property="incomeAccountName" />
+        <result column="INCOME_ACCOUNT_CODE" property="incomeAccountCode" />
+        <result column="INCOME_AT" property="incomeAt" />
+        <result column="INCOME_REMARKS" property="incomeRemarks" />
+        <result column="CLAIM_STATE" property="claimState" />
+        <result column="CANNOT_CLAIM_MONEY" property="cannotClaimMoney" />
+        <result column="CAN_CLAIM_MONEY" property="canClaimMoney" />
+        <result column="REL_INCOME_USER_ID" property="relIncomeUserId" />
+        <result column="REL_ENTITY_ID" property="relEntityId" />
+        <result column="REL_CUSTOMER_ID" property="relCustomerId" />
+        <result column="REL_COMPANY_ID" property="relCompanyId" />
+        <result column="DATA_STATE" property="dataState" />
+        <result column="DATA_CREATE_AT" property="dataCreateAt" />
+        <result column="DATA_CREATE_USER_ID" property="dataCreateUserId" />
+        <result column="DATA_UPDATE_AT" property="dataUpdateAt" />
+        <result column="DATA_UPDATE_USER_ID" property="dataUpdateUserId" />
+        <result column="EXT_RESERVE" property="extReserve" />
+        <result column="RY_CREATE_USER_NICK" property="ryCreateUserNick" />
+        <result column="RY_CREATE_DEPT_NAME" property="ryCreateDeptName" />
+        <result column="RY_CREATE_DEPT_ID" property="ryCreateDeptId" />
+        <result column="VIEW_ID" property="viewId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, INCOME_MONEY, INCOME_TYPE, INCOME_CODE, INCOME_ACCOUNT_NAME, INCOME_ACCOUNT_CODE, INCOME_AT, INCOME_REMARKS, CLAIM_STATE, CANNOT_CLAIM_MONEY, CAN_CLAIM_MONEY, REL_INCOME_USER_ID, REL_ENTITY_ID, REL_CUSTOMER_ID, REL_COMPANY_ID, DATA_STATE, DATA_CREATE_AT, DATA_CREATE_USER_ID, DATA_UPDATE_AT, DATA_UPDATE_USER_ID, EXT_RESERVE, RY_CREATE_USER_NICK, RY_CREATE_DEPT_NAME, RY_CREATE_DEPT_ID, VIEW_ID
+    </sql>
+
+</mapper>

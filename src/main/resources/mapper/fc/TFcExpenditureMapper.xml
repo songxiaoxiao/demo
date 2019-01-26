@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moxi.core.demo.dao.fc.TFcExpenditureMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="moxi.core.demo.model.fc.TFcExpenditure">
+        <id column="ID" property="id" />
+        <result column="EXPENDITURE_STATE" property="expenditureState" />
+        <result column="EXPENDITURE_CAUSE" property="expenditureCause" />
+        <result column="EXPENDITURE_SUBJECT1" property="expenditureSubject1" />
+        <result column="EXPENDITURE_SUBJECT2" property="expenditureSubject2" />
+        <result column="EXPENDITURE_SUBJECT3" property="expenditureSubject3" />
+        <result column="EXPENDITURE_MONEY" property="expenditureMoney" />
+        <result column="EXPENDITURE_AT" property="expenditureAt" />
+        <result column="EXPENDITURE_REMARKS" property="expenditureRemarks" />
+        <result column="ACCOUNT_BANK" property="accountBank" />
+        <result column="ACCOUNT_NAME" property="accountName" />
+        <result column="ACCOUNT_CODE" property="accountCode" />
+        <result column="REL_APPLY_USER_ID" property="relApplyUserId" />
+        <result column="REL_CONTRACT_ID" property="relContractId" />
+        <result column="REL_CUSTOMER_ID" property="relCustomerId" />
+        <result column="REL_PRODUCT_ID" property="relProductId" />
+        <result column="REL_RECEIVABLE_ID" property="relReceivableId" />
+        <result column="REL_ENTITY_ID" property="relEntityId" />
+        <result column="REL_ACCOUNT_ID" property="relAccountId" />
+        <result column="REL_COMPANY_ID" property="relCompanyId" />
+        <result column="DATA_STATE" property="dataState" />
+        <result column="DATA_CREATE_AT" property="dataCreateAt" />
+        <result column="DATA_CREATE_USER_ID" property="dataCreateUserId" />
+        <result column="DATA_UPDATE_AT" property="dataUpdateAt" />
+        <result column="DATA_UPDATE_USER_ID" property="dataUpdateUserId" />
+        <result column="EXT_RESERVE" property="extReserve" />
+        <result column="USER_NICK" property="userNick" />
+        <result column="PRODUCT_NAME" property="productName" />
+        <result column="RY_CREATE_USER_NICK" property="ryCreateUserNick" />
+        <result column="RY_CREATE_DEPT_NAME" property="ryCreateDeptName" />
+        <result column="RY_CREATE_DEPT_ID" property="ryCreateDeptId" />
+        <result column="VIEW_ID" property="viewId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, EXPENDITURE_STATE, EXPENDITURE_CAUSE, EXPENDITURE_SUBJECT1, EXPENDITURE_SUBJECT2, EXPENDITURE_SUBJECT3, EXPENDITURE_MONEY, EXPENDITURE_AT, EXPENDITURE_REMARKS, ACCOUNT_BANK, ACCOUNT_NAME, ACCOUNT_CODE, REL_APPLY_USER_ID, REL_CONTRACT_ID, REL_CUSTOMER_ID, REL_PRODUCT_ID, REL_RECEIVABLE_ID, REL_ENTITY_ID, REL_ACCOUNT_ID, REL_COMPANY_ID, DATA_STATE, DATA_CREATE_AT, DATA_CREATE_USER_ID, DATA_UPDATE_AT, DATA_UPDATE_USER_ID, EXT_RESERVE, USER_NICK, PRODUCT_NAME, RY_CREATE_USER_NICK, RY_CREATE_DEPT_NAME, RY_CREATE_DEPT_ID, VIEW_ID
+    </sql>
+
+
+
+    <resultMap id="fCashReceipt" type="moxi.core.demo.vo.WalletTempVO" >
+        <id column="ID" property="id" />
+        <result column="EXPENDITURE_MONEY" property="amount"/>
+        <result column="ID" property="orderId"/>
+        <result column="REL_PRODUCT_ID" property="relProductId"/>
+        <result column="REL_CUSTOMER_ID" property="relCustomerId"/>
+        <result column="EXPENDITURE_AT" property="datetime"/>
+    </resultMap>
+
+
+    <select id="refund" resultMap="fCashReceipt" parameterType="moxi.core.demo.model.task.TaskDO">
+        select fe.ID, fe.EXPENDITURE_MONEY, fe.REL_PRODUCT_ID, fe.REL_CUSTOMER_ID, fe.EXPENDITURE_AT from t_fc_expenditure fe
+        where EXPENDITURE_CAUSE = 3 and EXPENDITURE_STATE = 6 and REL_CUSTOMER_ID = #{customerId} and DATA_STATE = 1
+
+    </select>
+</mapper>

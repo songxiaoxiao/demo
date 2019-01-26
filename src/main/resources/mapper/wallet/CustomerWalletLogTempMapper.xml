@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moxi.core.demo.mapper.wallet.CustomerWalletLogTempMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="moxi.core.demo.model.wallet.CustomerWalletLogTemp">
+        <id column="id" property="id" />
+        <result column="order_id" property="orderId" />
+        <result column="amount" property="amount" />
+        <result column="type" property="type" />
+        <result column="customer_id" property="customerId" />
+        <result column="product_id" property="productId" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, order_id, amount, type, customer_id, product_id, create_time
+    </sql>
+
+</mapper>

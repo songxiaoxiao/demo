@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moxi.core.demo.dao.task.TTaskDzInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="moxi.core.demo.model.task.TTaskDzInfo">
+        <id column="ID" property="id" />
+        <result column="TAX_MONTH_START" property="taxMonthStart" />
+        <result column="TAX_MONTH_END" property="taxMonthEnd" />
+        <result column="TAX_MONEY_ZZS" property="taxMoneyZzs" />
+        <result column="TAX_MONEY_QYSDS" property="taxMoneyQysds" />
+        <result column="TAX_MONEY_GRSDS" property="taxMoneyGrsds" />
+        <result column="TAX_MONEY_QTSF" property="taxMoneyQtsf" />
+        <result column="REL_CHANCE_ID" property="relChanceId" />
+        <result column="REL_CONTRACT_ID" property="relContractId" />
+        <result column="REL_CUSTOMER_ID" property="relCustomerId" />
+        <result column="REL_PRODUCT_ID" property="relProductId" />
+        <result column="REL_TASK_ID" property="relTaskId" />
+        <result column="REL_COMPANY_ID" property="relCompanyId" />
+        <result column="DATA_STATE" property="dataState" />
+        <result column="DATA_CREATE_AT" property="dataCreateAt" />
+        <result column="DATA_CREATE_USER_ID" property="dataCreateUserId" />
+        <result column="DATA_UPDATE_AT" property="dataUpdateAt" />
+        <result column="DATA_UPDATE_USER_ID" property="dataUpdateUserId" />
+        <result column="EXT_RESERVE" property="extReserve" />
+        <result column="RY_CREATE_USER_NICK" property="ryCreateUserNick" />
+        <result column="RY_CREATE_DEPT_NAME" property="ryCreateDeptName" />
+        <result column="RY_CREATE_DEPT_ID" property="ryCreateDeptId" />
+        <result column="VIEW_ID" property="viewId" />
+        <result column="COST_CUSTOMER" property="costCustomer" />
+        <result column="COST_FINANCE" property="costFinance" />
+        <result column="COST_OUTBUDGET" property="costOutbudget" />
+        <result column="BASE_TYPE" property="baseType" />
+        <result column="ROYALTY_BASE" property="royaltyBase" />
+    </resultMap>
+
+    <resultMap id="taskCResult" type="moxi.core.demo.vo.WalletTempVO">
+        <id column="ID" property="id" />
+        <result column="REL_TASK_ID" property="orderId"/>
+        <result column="NETRECEIPTS_MONEY" property="amount"/>
+        <result column="REL_PRODUCT_ID" property="relProductId"/>
+        <result column="REL_CUSTOMER_ID" property="relCustomerId"/>
+        <result column="DATA_UPDATE_AT" property="datetime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, TAX_MONTH_START, TAX_MONTH_END, TAX_MONEY_ZZS, TAX_MONEY_QYSDS, TAX_MONEY_GRSDS, TAX_MONEY_QTSF, REL_CHANCE_ID, REL_CONTRACT_ID, REL_CUSTOMER_ID, REL_PRODUCT_ID, REL_TASK_ID, REL_COMPANY_ID, DATA_STATE, DATA_CREATE_AT, DATA_CREATE_USER_ID, DATA_UPDATE_AT, DATA_UPDATE_USER_ID, EXT_RESERVE, RY_CREATE_USER_NICK, RY_CREATE_DEPT_NAME, RY_CREATE_DEPT_ID, VIEW_ID, COST_CUSTOMER, COST_FINANCE, COST_OUTBUDGET, BASE_TYPE, ROYALTY_BASE
+    </sql>
+    <!--呆帐-->
+    <select id="list" parameterType="moxi.core.demo.model.task.TaskDO" resultMap="taskCResult">
+        select  tdi.ID,  tdi.REL_TASK_ID,  tdi.NETRECEIPTS_MONEY,  tdi.REL_PRODUCT_ID,  `tdi`.REL_CUSTOMER_ID, tb.DATA_UPDATE_AT from t_task_dz_info tdi
+        join t_task_base tb on tdi.REL_TASK_ID = tb.id and tdi.REL_CONTRACT_ID = tb.REL_CONTRACT_ID and tdi.REL_PRODUCT_ID = tb.REL_PRODUCT_ID
+        where `tdi`.REL_CUSTOMER_ID = #{customerId} and tb.TASK_STATE = 3 and tb.TASK_STYLE = 'C' and tdi.NETRECEIPTS_MONEY != 0
+        and tdi.DATA_STATE = 1
+    </select>
+
+    <resultMap id="taskResult" type="moxi.core.demo.vo.WalletTempVO">
+        <id column="ID" property="orderId" />
+        <result column="NETRECEIPTS_MONEY" property="amount"/>
+        <result column="REL_PRODUCT_ID" property="relProductId"/>
+        <result column="REL_CUSTOMER_ID" property="relCustomerId"/>
+        <result column="DATA_UPDATE_AT" property="datetime"/>
+    </resultMap>
+
+    <!--非呆帐-->
+    <select id="notCList" parameterType="moxi.core.demo.model.task.TaskDO" resultMap="taskResult">
+        select tb.ID, fr.NETRECEIPTS_MONEY, tb.REL_PRODUCT_ID, tb.REL_CUSTOMER_ID, tb.DATA_UPDATE_AT from t_task_base  tb
+        join t_fc_receivable fr on tb.REL_RECEIVABLE_ID = fr.id
+        where tb.REL_CUSTOMER_ID = #{customerId} and tb.TASK_STATE = 3 and tb.TASK_STYLE != 'C' and fr.NETRECEIPTS_MONEY != 0 and tb.DATA_STATE = 1
+    </select>
+
+</mapper>

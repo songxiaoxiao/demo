@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moxi.core.demo.dao.task.TTaskBaseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="moxi.core.demo.model.task.TTaskBase">
+        <id column="ID" property="id" />
+        <result column="TASK_NAME" property="taskName" />
+        <result column="TASK_CONTENT" property="taskContent" />
+        <result column="TASK_TAX_MONTH" property="taskTaxMonth" />
+        <result column="TASK_STYLE" property="taskStyle" />
+        <result column="TASK_EXT" property="taskExt" />
+        <result column="TASK_STATE" property="taskState" />
+        <result column="HANDOVER_CODE" property="handoverCode" />
+        <result column="REL_HEAD_USER_ID" property="relHeadUserId" />
+        <result column="REL_HEAD_USER_ID_NO" property="relHeadUserIdNo" />
+        <result column="REL_CHANCE_ID" property="relChanceId" />
+        <result column="REL_CONTRACT_ID" property="relContractId" />
+        <result column="REL_CUSTOMER_ID" property="relCustomerId" />
+        <result column="REL_PRODUCT_ID" property="relProductId" />
+        <result column="REL_RECEIVABLE_ID" property="relReceivableId" />
+        <result column="REL_COMPANY_ID" property="relCompanyId" />
+        <result column="DATA_STATE" property="dataState" />
+        <result column="DATA_CREATE_AT" property="dataCreateAt" />
+        <result column="DATA_CREATE_USER_ID" property="dataCreateUserId" />
+        <result column="DATA_UPDATE_AT" property="dataUpdateAt" />
+        <result column="DATA_UPDATE_USER_ID" property="dataUpdateUserId" />
+        <result column="EXT_RESERVE" property="extReserve" />
+        <result column="RY_PRI_USER_ID" property="ryPriUserId" />
+        <result column="RY_PRI_USER_NICK" property="ryPriUserNick" />
+        <result column="RY_PRI_DEPT_NAME" property="ryPriDeptName" />
+        <result column="RY_PRI_DEPT_ID" property="ryPriDeptId" />
+        <result column="DATA_TEAM_ID" property="dataTeamId" />
+        <result column="DATA_DIRECT_ID" property="dataDirectId" />
+        <result column="RY_CREATE_USER_NICK" property="ryCreateUserNick" />
+        <result column="RY_CREATE_DEPT_NAME" property="ryCreateDeptName" />
+        <result column="RY_CREATE_DEPT_ID" property="ryCreateDeptId" />
+        <result column="VIEW_ID" property="viewId" />
+        <result column="PENAL_SUM" property="penalSum" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, TASK_NAME, TASK_CONTENT, TASK_TAX_MONTH, TASK_STYLE, TASK_EXT, TASK_STATE, HANDOVER_CODE, REL_HEAD_USER_ID, REL_HEAD_USER_ID_NO, REL_CHANCE_ID, REL_CONTRACT_ID, REL_CUSTOMER_ID, REL_PRODUCT_ID, REL_RECEIVABLE_ID, REL_COMPANY_ID, DATA_STATE, DATA_CREATE_AT, DATA_CREATE_USER_ID, DATA_UPDATE_AT, DATA_UPDATE_USER_ID, EXT_RESERVE, RY_PRI_USER_ID, RY_PRI_USER_NICK, RY_PRI_DEPT_NAME, RY_PRI_DEPT_ID, DATA_TEAM_ID, DATA_DIRECT_ID, RY_CREATE_USER_NICK, RY_CREATE_DEPT_NAME, RY_CREATE_DEPT_ID, VIEW_ID, PENAL_SUM
+    </sql>
+
+</mapper>
