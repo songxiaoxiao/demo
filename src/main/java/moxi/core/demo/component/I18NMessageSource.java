@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.Locale;
 
-@Component("i18NMessageSource")
+@Component
 public class I18NMessageSource {
 
     @Resource

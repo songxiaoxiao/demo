@@ -19,7 +19,7 @@ spring:
     application:
             name: moxi
 moxi:
-    remote: 127.0.0.1:9800/remote
+    remote: http://127.0.0.1:9800/remote
 logging:
     path: logs/
 mybatis-plus:

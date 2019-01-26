@@ -54,10 +54,10 @@ public class TestController extends BaseController {
 
         if (!passwd.equals("yesheis")) return fail(400,"暗号错误");
 
-//        Boolean customerList = customerWalletLogOuterService.subtractCustomerAvailble("123", "sadf",new BigDecimal("2"), "PENALTY", "2asdf");
+        Boolean customerList = customerWalletLogOuterService.subtractCustomerAvailble("123", "sadf",new BigDecimal("2"), "PENALTY", "2asdf");
 //        Boolean customerList = customerWalletLogService.insetLogThreadQueue();
 //        List<TBizCustomer> customerIdList = bizCustomerService.list();
-        return success();
+        return success(customerList);
     }
 
 }

@@ -31,7 +31,7 @@ public class BaseController {
     @Resource
     protected HttpServletResponse response;
 
-    @Resource(name = "i18NMessageSource")
+    @Resource
     protected I18NMessageSource i18NMessageSource;
 
     /**
