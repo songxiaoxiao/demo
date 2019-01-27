@@ -7,6 +7,7 @@ import moxi.core.demo.entity.ResponseData;
 import moxi.core.demo.service.customer.ITBizCustomerService;
 import moxi.core.demo.remoteservice.CustomerWalletLogOuterService;
 import moxi.core.demo.service.wallet.ITCustomerWalletLogService;
+import moxi.core.demo.service.wallet.ITCustomerWalletService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +27,8 @@ public class TestController extends BaseController {
 
     @Resource(name = "TCustomerWalletLogServiceImpl")
     private ITCustomerWalletLogService customerWalletLogService;
+@Resource(name = "TCustomerWalletServiceImpl")
+    private ITCustomerWalletService customerWalletService;
 
     @Resource
     private CustomerWalletLogOuterService customerWalletLogOuterService;
@@ -44,7 +47,7 @@ public class TestController extends BaseController {
 
         if (!passwd.equals("yesheis")) return fail(400,"暗号错误");
 
-        Boolean customerList = customerWalletLogService.insetLogThreadQueue();
+        Boolean customerList = customerWalletService.insetLogThreadQueue();
         return success(customerList);
     }
 

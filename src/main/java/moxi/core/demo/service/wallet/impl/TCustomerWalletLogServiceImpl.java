@@ -5,6 +5,7 @@ import moxi.core.demo.model.wallet.CustomerWalletLogTemp;
 import moxi.core.demo.model.wallet.TCustomerWallet;
 import moxi.core.demo.model.wallet.TCustomerWalletLog;
 import moxi.core.demo.dao.wallet.TCustomerWalletLogMapper;
+import moxi.core.demo.remoteservice.CustomerWalletLogOuterService;
 import moxi.core.demo.service.wallet.ICustomerWalletLogTempService;
 import moxi.core.demo.service.wallet.ITCustomerWalletLogService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -12,7 +13,9 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,44 +28,41 @@ import java.util.List;
  */
 @Service
 public class TCustomerWalletLogServiceImpl extends ServiceImpl<TCustomerWalletLogMapper, TCustomerWalletLog> implements ITCustomerWalletLogService {
-    @Resource
-    private ICustomerWalletLogTempService customerWalletLogTempService;
-
-    @Resource(name = "customerWalletLog")
-    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
-
-
-    //  TCustomerWalletLogService.insetLogThreadQueue 将临时表 整理进入 资产流水日志表
-    public Boolean insetLogThreadQueue(){
-        // 查询所有 有记录的客户id不重复
-        List<String> customerIdList = customerWalletLogTempService.customerIdList();
-
-        for (String customerId : customerIdList) {
-            threadPoolTaskExecutor.execute(()->{
-                TaskDO taskDO = new TaskDO();
-                taskDO.setCustomerId(customerId);
-                //  查询某个客户的所有资产记录
-                List<CustomerWalletLogTemp> customerWalletLogTempList = customerWalletLogTempService.list(taskDO);
-                //插入记录
-
-                insertCustomerWalletLog(customerWalletLogTempList);
-
-            });
-        }
 
 
 
-        return true;
+
+    public void subtractWriteWalletLog(TCustomerWallet customerWallet, String type, String orderId, BigDecimal amount, Long time){
+        TCustomerWalletLog tCustomerWalletLog = new TCustomerWalletLog();
+
+        tCustomerWalletLog.setCustomerId(customerWallet.getCustomerId());
+        tCustomerWalletLog.setType(type);
+        tCustomerWalletLog.setProductId(customerWallet.getProductId());
+        tCustomerWalletLog.setCreateTime(time);
+        tCustomerWalletLog.setOrderId(orderId);
+        //可用资产变动
+        tCustomerWalletLog.setAmount(amount);
+        tCustomerWalletLog.setBeforeAmount(customerWallet.getAvailable().add(amount));
+        tCustomerWalletLog.setAfterAmount(customerWallet.getAvailable());
+        //冻结资产变动
+
+        this.insert(tCustomerWalletLog);
     }
+    public void addWriteWalletLog(TCustomerWallet customerWallet, String type, String orderId, BigDecimal amount, Long time){
+        TCustomerWalletLog tCustomerWalletLog = new TCustomerWalletLog();
 
-    private Boolean insertCustomerWalletLog(List<CustomerWalletLogTemp> customerWalletLogTempList){
+        tCustomerWalletLog.setCustomerId(customerWallet.getCustomerId());
+        tCustomerWalletLog.setType(type);
+        tCustomerWalletLog.setProductId(customerWallet.getProductId());
+        tCustomerWalletLog.setCreateTime(time);
+        tCustomerWalletLog.setOrderId(orderId);
+        //可用资产变动
+        tCustomerWalletLog.setAmount(amount);
+        tCustomerWalletLog.setBeforeAmount(customerWallet.getAvailable().subtract(amount));
+        tCustomerWalletLog.setAfterAmount(customerWallet.getAvailable());
+        //冻结资产变动
 
-        List<TCustomerWalletLog> tCustomerWalletLogList = new ArrayList<>();
-
-        for (CustomerWalletLogTemp customerWalletLogTemp : customerWalletLogTempList) {
-            TCustomerWallet tCustomerWallet = new TCustomerWallet();
-
-        }
-        return true;
+//        tCustomerWalletLog.insert();
+        this.insert(tCustomerWalletLog);
     }
 }
