@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="moxi.core.demo.mapper.wallet.CustomerWalletLogTempMapper">
+<mapper namespace="moxi.core.demo.dao.wallet.CustomerWalletLogTempMapper">
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="moxi.core.demo.model.wallet.CustomerWalletLogTemp">
@@ -18,4 +18,13 @@
         id, order_id, amount, type, customer_id, product_id, create_time
     </sql>
 
+    <resultMap id="customerId" type="moxi.core.demo.model.wallet.CustomerWalletLogTempDO">
+        <result column="customer_id" property="customerId"/>
+    </resultMap>
+    <select id="customerIdList" resultType="java.lang.String">
+        SELECT  customer_id
+         FROM customer_wallet_log_temp
+         GROUP BY customer_id
+
+    </select>
 </mapper>

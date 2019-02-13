@@ -27,7 +27,7 @@ public class TestController extends BaseController {
 
     @Resource(name = "TCustomerWalletLogServiceImpl")
     private ITCustomerWalletLogService customerWalletLogService;
-@Resource(name = "TCustomerWalletServiceImpl")
+    @Resource(name = "TCustomerWalletServiceImpl")
     private ITCustomerWalletService customerWalletService;
 
     @Resource
@@ -60,6 +60,26 @@ public class TestController extends BaseController {
         Boolean customerList = customerWalletLogOuterService.subtractCustomerAvailble("123", "sadf",new BigDecimal("2"), "PENALTY", "2asdf");
 //        Boolean customerList = customerWalletLogService.insetLogThreadQueue();
 //        List<TBizCustomer> customerIdList = bizCustomerService.list();
+        return success(customerList);
+    }
+
+    @GetMapping("/update")
+    @ResponseBody
+    public ResponseData update(@NotNull String passwd){
+
+        if (!passwd.equals("yesheis")) return fail(400,"暗号错误");
+
+        Boolean customerList = customerWalletService.updateCustomerAvailble();
+        return success(customerList);
+    }
+
+    @GetMapping("/rever")
+    @ResponseBody
+    public ResponseData rever(@NotNull String passwd){
+
+        if (!passwd.equals("yesheis")) return fail(400,"暗号错误");
+
+        Boolean customerList = customerWalletService.reverWalletLog();
         return success(customerList);
     }
 

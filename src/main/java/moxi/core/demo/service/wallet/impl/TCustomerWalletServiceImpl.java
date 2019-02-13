@@ -3,6 +3,7 @@ package moxi.core.demo.service.wallet.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import moxi.core.demo.dao.wallet.CustomerWalletLogTempMapper;
 import moxi.core.demo.model.task.TaskDO;
 import moxi.core.demo.model.wallet.CustomerWalletLogTemp;
 import moxi.core.demo.model.wallet.TCustomerWallet;
@@ -44,12 +45,15 @@ public class TCustomerWalletServiceImpl extends ServiceImpl<TCustomerWalletMappe
     @Resource(name = "customerWalletLog")
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
+    @Resource
+    private CustomerWalletLogTempMapper customerWalletLogTempMapper;
 
 
     //  TCustomerWalletLogService.insetLogThreadQueue 将临时表 整理进入 资产流水日志表
     public Boolean insetLogThreadQueue(){
         // 查询所有 有记录的客户id不重复
-        List<String> customerIdList = customerWalletLogTempService.customerIdList();
+        List<String> customerIdList = customerWalletLogTempMapper.customerIdList();
+//        List<String> customerIdList = customerWalletLogTempService.customerIdList();
 
         for (String customerId : customerIdList) {
             threadPoolTaskExecutor.execute(()->{
@@ -65,10 +69,63 @@ public class TCustomerWalletServiceImpl extends ServiceImpl<TCustomerWalletMappe
         }
 
 
+        return true;
+    }
+    public Boolean reverWalletLog(){
+        List<TCustomerWalletLog> list = itCustomerWalletLogService.list();
+        for (TCustomerWalletLog customerWalletLog : list) {
+
+
+        }
 
         return true;
     }
 
+    public Boolean updateCustomerAvailble(){
+        List<TCustomerWalletLog> list = itCustomerWalletLogService.list();
+
+        for (TCustomerWalletLog customerWalletLog : list) {
+
+            threadPoolTaskExecutor.execute(()->{
+
+                this.receiveData(customerWalletLog);
+
+            });
+        }
+
+        return true;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean receiveData(TCustomerWalletLog customerWalletLog){
+        //删除数据
+        //累计减少流水金额
+        //减少用户产品余额
+        TCustomerWalletServiceImpl tCustomerWalletService = this.updateLog(customerWalletLog)
+                .deleteLog(customerWalletLog)
+                .subtractWallet(customerWalletLog);
+        return true;
+    }
+    //删除补偿金日志
+    private TCustomerWalletServiceImpl deleteLog(TCustomerWalletLog customerWalletLog){
+        itCustomerWalletLogService.deleteLog(customerWalletLog);
+        return this;
+    }
+    //调整日志流水
+    private TCustomerWalletServiceImpl updateLog(TCustomerWalletLog customerWalletLog){
+        itCustomerWalletLogService.updateLog(customerWalletLog);
+        return this;
+    }
+    //减少补偿金带来的金额
+    private TCustomerWalletServiceImpl subtractWallet(TCustomerWalletLog customerWalletLog){
+        EntityWrapper<TCustomerWallet> condition = new EntityWrapper<>();
+        condition.eq("customer_id", customerWalletLog.getCustomerId());
+        condition.eq("product_id", customerWalletLog.getProductId());
+        TCustomerWallet customerWallet = this.selectOne(condition);
+        customerWallet.setAvailable(customerWallet.getAvailable().subtract(customerWalletLog.getAmount()));
+        this.update(customerWallet, condition);
+        return this;
+    }
 
     private Boolean insertCustomerWalletLog(List<CustomerWalletLogTemp> customerWalletLogTempList){
 
@@ -79,17 +136,10 @@ public class TCustomerWalletServiceImpl extends ServiceImpl<TCustomerWalletMappe
             switch (customerWalletLogTemp.getType()){
                 case "CASH_RECEIPT":
                     // 现金收款
-                    if (customerWalletLogTemp.getAmount().compareTo(new BigDecimal("0")) >= 0){
                         addCustomerAvailble(
                                 customerWalletLogTemp.getCustomerId(), customerWalletLogTemp.getProductId(), customerWalletLogTemp.getAmount(),
                                 customerWalletLogTemp.getType(), customerWalletLogTemp.getOrderId(), customerWalletLogTemp.getCreateTime()
                         );
-                    }else{
-                        subtractCustomerAvailble(
-                                customerWalletLogTemp.getCustomerId(), customerWalletLogTemp.getProductId(), customerWalletLogTemp.getAmount().abs(),
-                                customerWalletLogTemp.getType(), customerWalletLogTemp.getOrderId(), customerWalletLogTemp.getCreateTime()
-                        );
-                    }
                     break;
                 case "NON_CASH_RECEIPT" :
                     //非现金收款
@@ -104,11 +154,17 @@ public class TCustomerWalletServiceImpl extends ServiceImpl<TCustomerWalletMappe
                             customerWalletLogTemp.getType(), customerWalletLogTemp.getOrderId(), customerWalletLogTemp.getCreateTime()
                     );break;
                 case "REFUND":
-                    //退款
+//                    //退款
+//                    addCustomerAvailble(
+//                            customerWalletLogTemp.getCustomerId(), customerWalletLogTemp.getProductId(), customerWalletLogTemp.getAmount(),
+//                           "MAKE_UP", customerWalletLogTemp.getOrderId(), customerWalletLogTemp.getCreateTime()
+//                    );
                     subtractCustomerAvailble(
                             customerWalletLogTemp.getCustomerId(), customerWalletLogTemp.getProductId(), customerWalletLogTemp.getAmount().abs(),
-                            customerWalletLogTemp.getType(), customerWalletLogTemp.getOrderId(), customerWalletLogTemp.getCreateTime()
-                    );break;
+                            "WITHDRAW", customerWalletLogTemp.getOrderId(), customerWalletLogTemp.getCreateTime()
+                    );
+
+                    break;
                 case "TASK":
                     //任务
                     subtractCustomerAvailble(

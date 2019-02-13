@@ -40,7 +40,7 @@ public class BaseController {
      */
     protected ResponseData success(){
         int code = 200;
-        String message = i18NMessageSource.getMessage(code+"",null);
+        String message = i18NMessageSource.getMessage(code+"");
         return ResponseData.success(code, message);
     }
     /**
@@ -50,7 +50,7 @@ public class BaseController {
      */
     protected ResponseData success(Object data){
         int code = 200;
-        String message = i18NMessageSource.getMessage(code+"",null);
+        String message = i18NMessageSource.getMessage(code+"");
         return ResponseData.success(code, message, data);
     }
 
@@ -62,7 +62,7 @@ public class BaseController {
      */
     protected ResponseData success(Object data, int total){
         int code = 200;
-        String message = i18NMessageSource.getMessage(code+"",null);
+        String message = i18NMessageSource.getMessage(code+"");
         return ResponseData.success(code, message, data, total);
     }
 
@@ -85,7 +85,7 @@ public class BaseController {
      * @return
      */
     protected ResponseData fail(Integer code){
-        String message = i18NMessageSource.getMessage(code+"", null);
+        String message = i18NMessageSource.getMessage(code+"");
         logger.error("error.code:[{}], error.msg:[{}]", code, message);
         return ResponseData.error(code, message);
     }

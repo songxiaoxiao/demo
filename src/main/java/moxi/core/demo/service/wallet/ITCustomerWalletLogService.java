@@ -5,6 +5,7 @@ import moxi.core.demo.model.wallet.TCustomerWalletLog;
 import com.baomidou.mybatisplus.service.IService;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>
@@ -18,5 +19,10 @@ public interface ITCustomerWalletLogService extends IService<TCustomerWalletLog>
 
     void subtractWriteWalletLog(TCustomerWallet customerWallet, String type, String orderId, BigDecimal amount, Long time);
     void addWriteWalletLog(TCustomerWallet customerWallet, String type, String orderId, BigDecimal amount, Long time);
+
+    List<TCustomerWalletLog> list();
+    List<TCustomerWalletLog> withdrawList();
+    Boolean deleteLog(TCustomerWalletLog customerWalletLog);
+    Boolean updateLog(TCustomerWalletLog customerWalletLog);
 
 }

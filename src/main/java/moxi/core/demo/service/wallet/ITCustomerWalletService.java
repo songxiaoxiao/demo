@@ -18,7 +18,8 @@ import java.util.List;
 public interface ITCustomerWalletService extends IService<TCustomerWallet> {
 
     Boolean insetLogThreadQueue();
-
+    Boolean updateCustomerAvailble();
+    Boolean reverWalletLog();
 
     /**
      * 减扣用户可用资产
@@ -39,6 +40,7 @@ public interface ITCustomerWalletService extends IService<TCustomerWallet> {
      * @param orderId 订单号
      * */
     Boolean addCustomerAvailble(String customerId, String productId, BigDecimal amount, String type, String orderId, Long time);
+
 
 
 }

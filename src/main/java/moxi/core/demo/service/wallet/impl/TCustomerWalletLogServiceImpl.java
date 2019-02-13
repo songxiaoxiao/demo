@@ -1,5 +1,6 @@
 package moxi.core.demo.service.wallet.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import moxi.core.demo.model.task.TaskDO;
 import moxi.core.demo.model.wallet.CustomerWalletLogTemp;
 import moxi.core.demo.model.wallet.TCustomerWallet;
@@ -64,5 +65,42 @@ public class TCustomerWalletLogServiceImpl extends ServiceImpl<TCustomerWalletLo
 
 //        tCustomerWalletLog.insert();
         this.insert(tCustomerWalletLog);
+    }
+
+
+    public List<TCustomerWalletLog> list(){
+        EntityWrapper<TCustomerWalletLog> condition = new EntityWrapper<>();
+        condition.eq("type", "MAKE_UP");
+        return this.selectList(condition);
+    }
+
+    public List<TCustomerWalletLog> withdrawList(){
+        EntityWrapper<TCustomerWalletLog> condition = new EntityWrapper<>();
+        condition.eq("type", "WITHDRAW");
+        return this.selectList(condition);
+    }
+    public Boolean deleteLog(TCustomerWalletLog customerWalletLog){
+        EntityWrapper<TCustomerWalletLog> condition = new EntityWrapper<>();
+        condition.eq("type", "MAKE_UP");
+        condition.eq("id", customerWalletLog.getId());
+        return this.delete(condition);
+    }
+
+    public Boolean updateLog(TCustomerWalletLog customerWalletLog){
+        EntityWrapper<TCustomerWalletLog> condition = new EntityWrapper<>();
+        condition.ne("type", "MAKE_UP");
+        condition.gt("create_time", customerWalletLog.getCreateTime());
+        condition.eq("customer_id", customerWalletLog.getCustomerId());
+        condition.eq("product_id", customerWalletLog.getProductId());
+
+        List<TCustomerWalletLog> tCustomerWalletLogList = this.selectList(condition);
+        if (tCustomerWalletLogList.isEmpty()) return null;
+        for (TCustomerWalletLog tcustomerWalletLog : tCustomerWalletLogList) {
+
+            tcustomerWalletLog.setAfterAmount(tcustomerWalletLog.getAfterAmount().subtract(customerWalletLog.getAmount()));
+            tcustomerWalletLog.setBeforeAmount(tcustomerWalletLog.getBeforeAmount().subtract(customerWalletLog.getAmount()));
+        }
+
+        return this.updateBatchById(tCustomerWalletLogList);
     }
 }
