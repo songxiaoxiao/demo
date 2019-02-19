@@ -1,22 +1,14 @@
 package moxi.core.demo.service.wallet.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import moxi.core.demo.model.task.TaskDO;
-import moxi.core.demo.model.wallet.CustomerWalletLogTemp;
 import moxi.core.demo.model.wallet.TCustomerWallet;
 import moxi.core.demo.model.wallet.TCustomerWalletLog;
 import moxi.core.demo.dao.wallet.TCustomerWalletLogMapper;
-import moxi.core.demo.remoteservice.CustomerWalletLogOuterService;
-import moxi.core.demo.service.wallet.ICustomerWalletLogTempService;
 import moxi.core.demo.service.wallet.ITCustomerWalletLogService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

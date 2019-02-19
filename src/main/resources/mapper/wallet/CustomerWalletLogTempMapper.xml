@@ -25,6 +25,5 @@
         SELECT  customer_id
          FROM customer_wallet_log_temp
          GROUP BY customer_id
-
     </select>
 </mapper>

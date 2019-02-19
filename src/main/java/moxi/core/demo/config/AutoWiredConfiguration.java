@@ -16,9 +16,9 @@ public class AutoWiredConfiguration {
     @Bean(name ="customerWalletLog")
     public ThreadPoolTaskExecutor customerWalletLog(){
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(5);
+        executor.setCorePoolSize(10);
         executor.setKeepAliveSeconds(600);
-        executor.setMaxPoolSize(15);
+        executor.setMaxPoolSize(30);
         executor.setQueueCapacity(20000);
         return executor;
 

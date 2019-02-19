@@ -34,7 +34,7 @@ import java.util.List;
  * @author winter
  * @since 2019-01-25
  */
-@Service("TBizCustomerServiceImpl")
+@Service
 @Slf4j
 public class TBizCustomerServiceImpl extends ServiceImpl<TBizCustomerMapper, TBizCustomer> implements ITBizCustomerService {
 
@@ -69,8 +69,6 @@ public class TBizCustomerServiceImpl extends ServiceImpl<TBizCustomerMapper, TBi
 
                 List<CustomerWalletLogTemp> customerWalletLogTempList = new ArrayList<>();
 
-
-
                 log.info("bizCustomer.toString() 加入线程池：" + bizCustomer.toString());
                 //查询任务
                 TaskDO taskDO = new TaskDO();
@@ -81,7 +79,7 @@ public class TBizCustomerServiceImpl extends ServiceImpl<TBizCustomerMapper, TBi
                     customerWalletLogTempList.add(setCustomerWalletLogTemp(taskinfo, "TASK"));
 
                 }
-                    //非呆帐任务
+                    //非代帐任务
                 List<WalletTempVO> notCtasklist = tTaskDzInfoMapper.notCList(taskDO);
                 for (WalletTempVO notCtaskinfo: notCtasklist) {
                     customerWalletLogTempList.add(setCustomerWalletLogTemp(notCtaskinfo, "TASK"));
