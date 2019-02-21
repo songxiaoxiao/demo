@@ -159,7 +159,7 @@ public class TBizCustomerServiceImpl extends ServiceImpl<TBizCustomerMapper, TBi
         customerWalletLogTemp.setProductId(walletTempVO.getRelProductId());
 
         EntityWrapper<TBizContractProduct> condition = new EntityWrapper<>();
-//        condition.eq("")
+//        condition.eq("REL_CONTRACT_ID", walletTempVO.getREl)
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long timestamp = 0L;

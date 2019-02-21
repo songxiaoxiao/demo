@@ -15,5 +15,6 @@ public class WalletTempVO implements Serializable {
     private String relProductId;
     private String relCustomerId;
     private String datetime;
+    private String relContractId;
 
 }
