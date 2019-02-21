@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moxi.core.demo.mapper.contract.TBizContractProductMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="moxi.core.demo.model.contract.TBizContractProduct">
+        <id column="REL_ID" property="relId" />
+        <result column="REL_PRODUCT_ID" property="relProductId" />
+        <result column="REL_CONTRACT_ID" property="relContractId" />
+        <result column="REL_COMPANY_ID" property="relCompanyId" />
+        <result column="REL_PRODUCT_NAME" property="relProductName" />
+        <result column="REL_PRODUCT_PRICE" property="relProductPrice" />
+        <result column="REL_PRODUCT_SPEC" property="relProductSpec" />
+        <result column="PRODUCT_NUMBER" property="productNumber" />
+        <result column="TOTAL_AMOUNT" property="totalAmount" />
+        <result column="RECEIVE_AMOUNT" property="receiveAmount" />
+        <result column="EXPENDITURE_BUDGET" property="expenditureBudget" />
+        <result column="ACTUAL_EXPENDITURE" property="actualExpenditure" />
+        <result column="REL_PRODUCT_SORT" property="relProductSort" />
+        <result column="DATA_STATE" property="dataState" />
+        <result column="DATA_CREATE_AT" property="dataCreateAt" />
+        <result column="DATA_CREATE_USER_ID" property="dataCreateUserId" />
+        <result column="DATA_UPDATE_AT" property="dataUpdateAt" />
+        <result column="DATA_UPDATE_USER_ID" property="dataUpdateUserId" />
+        <result column="EXT_RESERVE" property="extReserve" />
+        <result column="ID" property="id" />
+        <result column="REL_PRODUCT_TYPE_ID" property="relProductTypeId" />
+        <result column="RY_CREATE_USER_NICK" property="ryCreateUserNick" />
+        <result column="RY_CREATE_DEPT_NAME" property="ryCreateDeptName" />
+        <result column="RY_CREATE_DEPT_ID" property="ryCreateDeptId" />
+        <result column="VIEW_ID" property="viewId" />
+        <result column="PRODUCT_GIVING_NUMBER" property="productGivingNumber" />
+        <result column="PRODUCT_PRICE" property="productPrice" />
+        <result column="TASK_STATE" property="taskState" />
+        <result column="PAY_STATE" property="payState" />
+        <result column="REFUND_STATE" property="refundState" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        REL_ID, REL_PRODUCT_ID, REL_CONTRACT_ID, REL_COMPANY_ID, REL_PRODUCT_NAME, REL_PRODUCT_PRICE, REL_PRODUCT_SPEC, PRODUCT_NUMBER, TOTAL_AMOUNT, RECEIVE_AMOUNT, EXPENDITURE_BUDGET, ACTUAL_EXPENDITURE, REL_PRODUCT_SORT, DATA_STATE, DATA_CREATE_AT, DATA_CREATE_USER_ID, DATA_UPDATE_AT, DATA_UPDATE_USER_ID, EXT_RESERVE, ID, REL_PRODUCT_TYPE_ID, RY_CREATE_USER_NICK, RY_CREATE_DEPT_NAME, RY_CREATE_DEPT_ID, VIEW_ID, PRODUCT_GIVING_NUMBER, PRODUCT_PRICE, TASK_STATE, PAY_STATE, REFUND_STATE
+    </sql>
+
+</mapper>

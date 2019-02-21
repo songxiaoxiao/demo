@@ -7,6 +7,7 @@ import moxi.core.demo.dao.customer.TBizCustomerMapper;
 import moxi.core.demo.dao.fc.TFcClaimMapper;
 import moxi.core.demo.dao.fc.TFcExpenditureMapper;
 import moxi.core.demo.dao.task.TTaskDzInfoMapper;
+import moxi.core.demo.model.contract.TBizContractProduct;
 import moxi.core.demo.model.customer.TBizCustomer;
 import moxi.core.demo.model.fc.TFcClaim;
 import moxi.core.demo.model.task.TTaskBase;
@@ -76,6 +77,7 @@ public class TBizCustomerServiceImpl extends ServiceImpl<TBizCustomerMapper, TBi
 
                 List<WalletTempVO> tasklist = tTaskDzInfoMapper.list(taskDO);
                 for (WalletTempVO taskinfo: tasklist) {
+
                     customerWalletLogTempList.add(setCustomerWalletLogTemp(taskinfo, "TASK"));
 
                 }
@@ -155,6 +157,9 @@ public class TBizCustomerServiceImpl extends ServiceImpl<TBizCustomerMapper, TBi
         customerWalletLogTemp.setCustomerId(walletTempVO.getRelCustomerId());
         customerWalletLogTemp.setOrderId(walletTempVO.getOrderId());
         customerWalletLogTemp.setProductId(walletTempVO.getRelProductId());
+
+        EntityWrapper<TBizContractProduct> condition = new EntityWrapper<>();
+//        condition.eq("")
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long timestamp = 0L;

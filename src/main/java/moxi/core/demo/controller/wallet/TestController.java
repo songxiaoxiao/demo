@@ -1,6 +1,7 @@
 package moxi.core.demo.controller.wallet;
 
 
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import moxi.core.demo.controller.BaseController;
 import moxi.core.demo.entity.ResponseData;
@@ -16,7 +17,7 @@ import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
 @Controller
-@RequestMapping("/tCustomerWalletLog")
+@RequestMapping("/test")
 @Slf4j
 public class TestController extends BaseController {
 
@@ -33,6 +34,7 @@ public class TestController extends BaseController {
 
     @GetMapping("/customer")
     @ResponseBody
+    @ApiOperation("统计数据插入临时表")
     public ResponseData customer(@NotNull String passwd){
         if (!passwd.equals("xxIsHandsomeGuy")) return fail(400,"暗号错误");
 
