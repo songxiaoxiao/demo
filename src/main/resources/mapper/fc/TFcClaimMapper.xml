@@ -46,10 +46,11 @@
         <result column="REL_PRODUCT_ID" property="relProductId"/>
         <result column="REL_CUSTOMER_ID" property="relCustomerId"/>
         <result column="CONFIRM_AT" property="datetime"/>
+        <result column="REL_CONTRACT_ID" property="relContractId"/>
     </resultMap>
 
     <select id="cashReceipt" resultMap="fCashReceipt" parameterType="moxi.core.demo.model.task.TaskDO">
-        select fc.ID, fc.CLAIM_MONEY, fc.REL_PRODUCT_ID, fc.REL_CUSTOMER_ID, fc.CONFIRM_AT
+        select fc.ID, fc.CLAIM_MONEY, fc.REL_PRODUCT_ID, fc.REL_CUSTOMER_ID, fc.CONFIRM_AT, fc.REL_CONTRACT_ID
         from t_fc_claim fc
         join t_fc_income fi on fc.REL_INCOME_ID = fi.id
         where fc.REL_CUSTOMER_ID = #{customerId} and fc.CLAIM_STATE = 2 and fi.INCOME_TYPE = 1 and fc.DATA_STATE = 1
@@ -58,7 +59,7 @@
     </select>
 
     <select id="nonCashReceipt" resultMap="fCashReceipt" parameterType="moxi.core.demo.model.task.TaskDO">
-        select fc.ID, fc.CLAIM_MONEY, fc.REL_PRODUCT_ID, fc.REL_CUSTOMER_ID, fc.CONFIRM_AT
+        select fc.ID, fc.CLAIM_MONEY, fc.REL_PRODUCT_ID, fc.REL_CUSTOMER_ID, fc.CONFIRM_AT, fc.REL_CONTRACT_ID
         from t_fc_claim fc
         join t_fc_income fi on fc.REL_INCOME_ID = fi.id
         where fc.REL_CUSTOMER_ID = #{customerId} and fc.CLAIM_STATE = 2 and fi.INCOME_TYPE != 1 and fc.CLAIM_MONEY > 0 and fc.DATA_STATE = 1
@@ -68,7 +69,7 @@
 
     <!-- abs money subtract-->
     <select id="retreat" resultMap="fCashReceipt" parameterType="moxi.core.demo.model.task.TaskDO">
-        select fc.ID, fc.CLAIM_MONEY, fc.REL_PRODUCT_ID, fc.REL_CUSTOMER_ID, fc.CONFIRM_AT
+        select fc.ID, fc.CLAIM_MONEY, fc.REL_PRODUCT_ID, fc.REL_CUSTOMER_ID, fc.CONFIRM_AT, fc.REL_CONTRACT_ID
         from t_fc_claim fc
         join t_fc_income fi on fc.REL_INCOME_ID = fi.id
         where fc.REL_CUSTOMER_ID = #{customerId} and fc.CLAIM_STATE = 3 and fc.DATA_STATE = 1

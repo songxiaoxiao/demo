@@ -52,11 +52,12 @@
         <result column="REL_PRODUCT_ID" property="relProductId"/>
         <result column="REL_CUSTOMER_ID" property="relCustomerId"/>
         <result column="EXPENDITURE_AT" property="datetime"/>
+        <result column="REL_CONTRACT_ID" property="relContractId"/>
     </resultMap>
 
 
     <select id="refund" resultMap="fCashReceipt" parameterType="moxi.core.demo.model.task.TaskDO">
-        select fe.ID, fe.EXPENDITURE_MONEY, fe.REL_PRODUCT_ID, fe.REL_CUSTOMER_ID, fe.EXPENDITURE_AT from t_fc_expenditure fe
+        select fe.ID, fe.EXPENDITURE_MONEY, fe.REL_PRODUCT_ID, fe.REL_CUSTOMER_ID, fe.EXPENDITURE_AT, fe.REL_CONTRACT_ID from t_fc_expenditure fe
         where EXPENDITURE_CAUSE = 3 and EXPENDITURE_STATE = 6 and REL_CUSTOMER_ID = #{customerId} and DATA_STATE = 1
 
     </select>

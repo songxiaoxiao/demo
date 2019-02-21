@@ -35,7 +35,7 @@ public class TestController extends BaseController {
     @GetMapping("/customer")
     @ResponseBody
     @ApiOperation("统计数据插入临时表")
-    public ResponseData customer(@NotNull String passwd){
+    public ResponseData customer(@NotNull(message = "adsgf") String passwd){
         if (!passwd.equals("xxIsHandsomeGuy")) return fail(400,"暗号错误");
 
         Boolean customerList = bizCustomerService.setThreadQueue();

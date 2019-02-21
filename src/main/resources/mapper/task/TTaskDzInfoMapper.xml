@@ -41,6 +41,7 @@
         <result column="REL_PRODUCT_ID" property="relProductId"/>
         <result column="REL_CUSTOMER_ID" property="relCustomerId"/>
         <result column="DATA_UPDATE_AT" property="datetime"/>
+        <result column="REL_CONTRACT_ID" property="relContractId"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -61,11 +62,13 @@
         <result column="REL_PRODUCT_ID" property="relProductId"/>
         <result column="REL_CUSTOMER_ID" property="relCustomerId"/>
         <result column="DATA_UPDATE_AT" property="datetime"/>
+        <result column="REL_CONTRACT_ID" property="relContractId"/>
+
     </resultMap>
 
     <!--非呆帐-->
     <select id="notCList" parameterType="moxi.core.demo.model.task.TaskDO" resultMap="taskResult">
-        select tb.ID, fr.RECEIVABLE_MONEY, tb.REL_PRODUCT_ID, tb.REL_CUSTOMER_ID, tb.DATA_UPDATE_AT,tdi.REL_CONTRACT_ID from t_task_base  tb
+        select tb.ID, fr.RECEIVABLE_MONEY, tb.REL_PRODUCT_ID, tb.REL_CUSTOMER_ID, tb.DATA_UPDATE_AT,tb.REL_CONTRACT_ID from t_task_base  tb
         join t_fc_receivable fr on tb.REL_RECEIVABLE_ID = fr.id
         where tb.REL_CUSTOMER_ID = #{customerId} and tb.TASK_STATE = 3 and tb.TASK_STYLE != 'C' and fr.NETRECEIPTS_MONEY != 0 and tb.DATA_STATE = 1
     </select>

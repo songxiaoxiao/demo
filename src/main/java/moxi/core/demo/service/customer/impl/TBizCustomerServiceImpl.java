@@ -7,12 +7,14 @@ import moxi.core.demo.dao.customer.TBizCustomerMapper;
 import moxi.core.demo.dao.fc.TFcClaimMapper;
 import moxi.core.demo.dao.fc.TFcExpenditureMapper;
 import moxi.core.demo.dao.task.TTaskDzInfoMapper;
+import moxi.core.demo.exceptions.AppRuntimeException;
 import moxi.core.demo.model.contract.TBizContractProduct;
 import moxi.core.demo.model.customer.TBizCustomer;
 import moxi.core.demo.model.fc.TFcClaim;
 import moxi.core.demo.model.task.TTaskBase;
 import moxi.core.demo.model.task.TaskDO;
 import moxi.core.demo.model.wallet.CustomerWalletLogTemp;
+import moxi.core.demo.service.contract.impl.TBizContractProductServiceImpl;
 import moxi.core.demo.service.customer.ITBizCustomerService;
 import moxi.core.demo.service.task.impl.TTaskBaseServiceImpl;
 import moxi.core.demo.service.wallet.ICustomerWalletLogTempService;
@@ -56,6 +58,9 @@ public class TBizCustomerServiceImpl extends ServiceImpl<TBizCustomerMapper, TBi
 
     @Resource
     private TFcExpenditureMapper fcExpenditureMapper;
+
+    @Resource
+    private TBizContractProductServiceImpl tBizContractProductService;
 
     public List<TBizCustomer> list(){
         EntityWrapper<TBizCustomer> condition = new EntityWrapper<>();
@@ -102,6 +107,7 @@ public class TBizCustomerServiceImpl extends ServiceImpl<TBizCustomerMapper, TBi
                     taskInfoVO.setOrderId(taskBase.getId());
                     taskInfoVO.setRelCustomerId(taskBase.getRelCustomerId());
                     taskInfoVO.setRelProductId(taskBase.getRelProductId());
+                    taskInfoVO.setRelContractId(taskBase.getRelContractId());
 
 
                     customerWalletLogTempList.add(setCustomerWalletLogTemp(taskInfoVO, "PENALTY"));
@@ -159,7 +165,14 @@ public class TBizCustomerServiceImpl extends ServiceImpl<TBizCustomerMapper, TBi
         customerWalletLogTemp.setProductId(walletTempVO.getRelProductId());
 
         EntityWrapper<TBizContractProduct> condition = new EntityWrapper<>();
-//        condition.eq("REL_CONTRACT_ID", walletTempVO.getREl)
+        condition.eq("REL_CONTRACT_ID", walletTempVO.getRelContractId());
+        condition.eq("REL_PRODUCT_ID", walletTempVO.getRelProductId());
+
+        TBizContractProduct tBizContractProduct = tBizContractProductService.selectOne(condition);
+        if (tBizContractProduct == null) throw new AppRuntimeException(400, "没找到子合同：" + walletTempVO.toString());
+
+        customerWalletLogTemp.setContractProductId(tBizContractProduct.getRelId());
+        customerWalletLogTemp.setContractId(tBizContractProduct.getRelContractId());
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long timestamp = 0L;
