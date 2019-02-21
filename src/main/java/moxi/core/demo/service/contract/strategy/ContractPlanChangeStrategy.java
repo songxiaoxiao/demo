@@ -1,7 +1,8 @@
 package moxi.core.demo.service.contract.strategy;
 
-import com.xjd.common.model.contract.ContractPlanChangeDO;
-import com.xjd.common.service.contract.ITContractPlanChangeService;
+
+import moxi.core.demo.model.contract.ContractPlanChangeDO;
+import moxi.core.demo.service.contract.ITContractPlanChangeService;
 
 public class ContractPlanChangeStrategy {
 
