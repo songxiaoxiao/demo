@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjd.qlqw.manager.contract.dao.TContractPlanChangeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xjd.common.model.contract.TContractPlanChange">
+        <id column="id" property="id" />
+        <result column="customer_id" property="customerId" />
+        <result column="product_id" property="productId" />
+        <result column="contract_product_id" property="contractProductId" />
+        <result column="task_id" property="taskId" />
+        <result column="total_amount" property="totalAmount" />
+        <result column="price" property="price" />
+        <result column="price_change" property="priceChange" />
+        <result column="remaining_period" property="remainingPeriod" />
+        <result column="remaining_period_change" property="remainingPeriodChange" />
+        <result column="remaining_gift_period" property="remainingGiftPeriod" />
+        <result column="remaining_gift_period_change" property="remainingGiftPeriodChange" />
+        <result column="expenditure_budget" property="expenditureBudget" />
+        <result column="expenditure_budget_change" property="expenditureBudgetChange" />
+        <result column="planned_collection" property="plannedCollection" />
+        <result column="planned_collection_change" property="plannedCollectionChange" />
+        <result column="type" property="type" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, customer_id, product_id, contract_product_id, task_id, total_amount, price, price_change, remaining_period, remaining_period_change, remaining_gift_period, remaining_gift_period_change, expenditure_budget, expenditure_budget_change, planned_collection, planned_collection_change, type, create_time, update_time, gmt_create, gmt_modified
+    </sql>
+
+</mapper>

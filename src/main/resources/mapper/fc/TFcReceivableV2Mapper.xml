@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjd.qlqw.enterprise.finance.dao.TFcReceivableV2Mapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xjd.qlqw.enterprise.finance.model.TFcReceivable">
+        <id column="ID" property="id" />
+        <result column="RECEIVABLE_STATE" property="receivableState" />
+        <result column="RECEIVABLE_MONEY" property="receivableMoney" />
+        <result column="NETRECEIPTS_MONEY" property="netreceiptsMoney" />
+        <result column="ARREARS_MONEY" property="arrearsMoney" />
+        <result column="EXPENDITURE_MONEY" property="expenditureMoney" />
+        <result column="RECEIVABLE_REMARKS" property="receivableRemarks" />
+        <result column="REL_CONTRACT_ID" property="relContractId" />
+        <result column="REL_CUSTOMER_ID" property="relCustomerId" />
+        <result column="REL_PRODUCT_ID" property="relProductId" />
+        <result column="REL_COMPANY_ID" property="relCompanyId" />
+        <result column="DATA_STATE" property="dataState" />
+        <result column="DATA_CREATE_AT" property="dataCreateAt" />
+        <result column="DATA_CREATE_USER_ID" property="dataCreateUserId" />
+        <result column="DATA_UPDATE_AT" property="dataUpdateAt" />
+        <result column="DATA_UPDATE_USER_ID" property="dataUpdateUserId" />
+        <result column="EXT_RESERVE" property="extReserve" />
+        <result column="RY_CREATE_USER_NICK" property="ryCreateUserNick" />
+        <result column="RY_CREATE_DEPT_NAME" property="ryCreateDeptName" />
+        <result column="RY_CREATE_DEPT_ID" property="ryCreateDeptId" />
+        <result column="VIEW_ID" property="viewId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, RECEIVABLE_STATE, RECEIVABLE_MONEY, NETRECEIPTS_MONEY, ARREARS_MONEY, EXPENDITURE_MONEY, RECEIVABLE_REMARKS, REL_CONTRACT_ID, REL_CUSTOMER_ID, REL_PRODUCT_ID, REL_COMPANY_ID, DATA_STATE, DATA_CREATE_AT, DATA_CREATE_USER_ID, DATA_UPDATE_AT, DATA_UPDATE_USER_ID, EXT_RESERVE, RY_CREATE_USER_NICK, RY_CREATE_DEPT_NAME, RY_CREATE_DEPT_ID, VIEW_ID
+    </sql>
+
+</mapper>

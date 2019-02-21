@@ -3,6 +3,7 @@ package moxi.core.demo.service.wallet;
 import moxi.core.demo.model.wallet.TCustomerWallet;
 import moxi.core.demo.model.wallet.TCustomerWalletLog;
 import com.baomidou.mybatisplus.service.IService;
+import moxi.core.demo.model.wallet.WalletLogVO;
 
 import java.math.BigDecimal;
 import java.util.List;
