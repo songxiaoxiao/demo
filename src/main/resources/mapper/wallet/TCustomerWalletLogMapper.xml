@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xjd.qlqw.manager.wallet.dao.TCustomerWalletLogMapper">
+<mapper namespace="moxi.core.demo.dao.wallet.TCustomerWalletLogMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.xjd.common.model.wallet.TCustomerWalletLog">
+    <resultMap id="BaseResultMap" type="moxi.core.demo.model.wallet.TCustomerWalletLog">
         <id column="id" property="id" />
         <result column="customer_id" property="customerId" />
         <result column="type" property="type" />
@@ -25,7 +25,7 @@
         id, customer_id, type, product_id, order_id, amount, before_amount, after_amount, locked_change, before_locked, after_locked, remark, create_time, update_time
     </sql>
 
-    <select id="sumAmount" parameterType="com.xjd.qlqw.enterprise.wallet.vo.WalletLogVO" resultType="BigDecimal">
+    <select id="sumAmount" parameterType="moxi.core.demo.model.wallet.WalletLogVO" resultType="BigDecimal">
       select sum(amount) from t_customer_wallet_log where contract_product_id = #{contractProductId} and `type` = #{type}
     </select>
 </mapper>

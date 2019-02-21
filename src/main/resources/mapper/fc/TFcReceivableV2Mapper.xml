@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xjd.qlqw.enterprise.finance.dao.TFcReceivableV2Mapper">
+<mapper namespace="moxi.core.demo.dao.fc.TFcReceivableV2Mapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.xjd.qlqw.enterprise.finance.model.TFcReceivable">
+    <resultMap id="BaseResultMap" type="moxi.core.demo.model.fc.TFcReceivable">
         <id column="ID" property="id" />
         <result column="RECEIVABLE_STATE" property="receivableState" />
         <result column="RECEIVABLE_MONEY" property="receivableMoney" />
